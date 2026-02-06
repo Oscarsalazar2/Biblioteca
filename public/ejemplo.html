@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin · Biblioteca</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <meta name="description" content="Panel de administración para una aplicación web de biblioteca." />
+</head>
+
+<body class="min-h-screen bg-slate-50 text-slate-900">
+  <!-- Header -->
+  <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="flex h-16 items-center justify-between gap-3">
+        <!-- Brand -->
+        <a href="#" class="flex items-center gap-3">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-emerald-600 text-white shadow-sm">
+            <!-- icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-2H6.5a.5.5 0 0 1 0-1H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/>
+              <path d="M8 6h10v2H8V6zm0 4h10v2H8v-2zm0 4h7v2H8v-2z"/>
+            </svg>
+          </span>
+          <div class="leading-tight">
+            <p class="text-sm font-semibold text-slate-900">Biblioteca</p>
+            <p class="text-xs text-slate-500">Panel de administración</p>
+          </div>
+        </a>
+
+        <!-- Desktop menu (Header) -->
+        <nav class="hidden md:flex items-center gap-1">
+          <a href="#inicio" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+            Inicio
+          </a>
+          <a href="#usuarios" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+            Usuarios
+          </a>
+          <a href="#prestamos" class="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+            Préstamos
+          </a>
+          <a href="#salir" class="rounded-lg px-3 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">
+            Salir
+          </a>
+        </nav>
+
+        <!-- Mobile hamburger -->
+        <button
+          id="openSidebarBtn"
+          class="md:hidden inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-700 shadow-sm hover:bg-slate-50"
+          aria-label="Abrir menú"
+          aria-controls="mobileSidebar"
+          aria-expanded="false"
+          type="button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 6h16v2H4V6zm0 5h16v2H4v-2zm0 5h16v2H4v-2z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Layout -->
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div class="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-6 py-6">
+      <!-- Sidebar (Desktop) -->
+      <aside class="hidden md:block">
+        <div class="sticky top-20 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+          <p class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+            Navegación
+          </p>
+
+          <nav class="space-y-1">
+            <a href="#inicio" class="group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700 group-hover:bg-emerald-100 group-hover:text-emerald-700">
+                <!-- home -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 3l9 8h-3v10h-5v-6H11v6H6V11H3l9-8z"/>
+                </svg>
+              </span>
+              Inicio
+            </a>
+
+            <a href="#libros" class="group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700 group-hover:bg-emerald-100 group-hover:text-emerald-700">
+                <!-- book -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-2H6.5a.5.5 0 0 1 0-1H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/>
+                </svg>
+              </span>
+              Libros
+            </a>
+
+            <a href="#prestamos" class="group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-slate-100 text-slate-700 group-hover:bg-emerald-100 group-hover:text-emerald-700">
+                <!-- arrows -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7 7h9V4l4 4-4 4V9H7V7zm10 10H8v3l-4-4 4-4v3h9v2z"/>
+                </svg>
+              </span>
+              Préstamos
+            </a>
+
+            <a href="#salir" class="group flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 shadow-sm">
+              <span class="grid h-9 w-9 place-items-center rounded-xl bg-white/15 text-white">
+                <!-- logout -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M10 17v-2h4v-6h-4V7l-5 5 5 5zm9 4H12v-2h7V5h-7V3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2z"/>
+                </svg>
+              </span>
+              Salir
+            </a>
+          </nav>
+
+          <div class="mt-4 rounded-2xl bg-slate-50 p-4">
+            <p class="text-sm font-semibold text-slate-900">Tip rápido</p>
+            <p class="mt-1 text-xs text-slate-600">
+              En móvil, abre el menú con la hamburguesa para ver la barra lateral.
+            </p>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <main class="space-y-6">
+        <!-- Hero / summary -->
+        <section id="inicio" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h1 class="text-xl font-bold text-slate-900">Administración de Biblioteca</h1>
+              <p class="mt-1 text-sm text-slate-600">
+                Control de usuarios, libros y préstamos desde un solo lugar.
+              </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-emerald-700">
+                + Nuevo préstamo
+              </button>
+              <button class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                + Nuevo libro
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI cards -->
+          <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Libros</p>
+              <p class="mt-2 text-2xl font-bold">1,248</p>
+              <p class="mt-1 text-xs text-slate-600">Catálogo total</p>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Usuarios</p>
+              <p class="mt-2 text-2xl font-bold">312</p>
+              <p class="mt-1 text-xs text-slate-600">Activos</p>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Préstamos</p>
+              <p class="mt-2 text-2xl font-bold">57</p>
+              <p class="mt-1 text-xs text-slate-600">En curso</p>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Retrasos</p>
+              <p class="mt-2 text-2xl font-bold">9</p>
+              <p class="mt-1 text-xs text-slate-600">Requieren atención</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Usuarios -->
+        <section id="usuarios" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="text-lg font-bold">Usuarios</h2>
+              <p class="text-sm text-slate-600">Gestiona usuarios y roles.</p>
+            </div>
+
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <label class="relative block">
+                <span class="sr-only">Buscar usuario</span>
+                <input
+                  type="search"
+                  placeholder="Buscar..."
+                  class="w-full sm:w-64 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-600/30"
+                />
+              </label>
+              <button class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 shadow-sm">
+                + Agregar
+              </button>
+            </div>
+          </header>
+
+          <div class="mt-4 overflow-hidden rounded-2xl border border-slate-200">
+            <div class="overflow-x-auto">
+              <table class="min-w-full text-left text-sm">
+                <thead class="bg-slate-50 text-slate-600">
+                  <tr>
+                    <th class="px-4 py-3 font-semibold">Nombre</th>
+                    <th class="px-4 py-3 font-semibold">Correo</th>
+                    <th class="px-4 py-3 font-semibold">Rol</th>
+                    <th class="px-4 py-3 font-semibold">Estado</th>
+                    <th class="px-4 py-3 font-semibold text-right">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 bg-white">
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-4 py-3 font-medium">Ana López</td>
+                    <td class="px-4 py-3 text-slate-600">ana@correo.com</td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+                        Admin
+                      </span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                        Activo
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100">
+                        Editar
+                      </button>
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50">
+                        Bloquear
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-4 py-3 font-medium">Carlos Méndez</td>
+                    <td class="px-4 py-3 text-slate-600">carlos@correo.com</td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                        Bibliotecario
+                      </span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                        Activo
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100">
+                        Editar
+                      </button>
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-50">
+                        Bloquear
+                      </button>
+                    </td>
+                  </tr>
+
+                  <tr class="hover:bg-slate-50">
+                    <td class="px-4 py-3 font-medium">María Torres</td>
+                    <td class="px-4 py-3 text-slate-600">maria@correo.com</td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                        Usuario
+                      </span>
+                    </td>
+                    <td class="px-4 py-3">
+                      <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-700">
+                        Pendiente
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-700 hover:bg-slate-100">
+                        Editar
+                      </button>
+                      <button class="rounded-lg px-3 py-1.5 text-xs font-semibold text-emerald-700 hover:bg-emerald-50">
+                        Activar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- Libros -->
+        <section id="libros" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="text-lg font-bold">Libros</h2>
+              <p class="text-sm text-slate-600">Administra el catálogo.</p>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+                Importar
+              </button>
+              <button class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 shadow-sm">
+                + Agregar libro
+              </button>
+            </div>
+          </header>
+
+          <div class="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Categorías</p>
+              <p class="mt-2 text-2xl font-bold">18</p>
+              <p class="mt-1 text-xs text-slate-600">Incluye ciencia, literatura, historia…</p>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Disponibles</p>
+              <p class="mt-2 text-2xl font-bold">1,107</p>
+              <p class="mt-1 text-xs text-slate-600">Listos para préstamo</p>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">No disponibles</p>
+              <p class="mt-2 text-2xl font-bold">141</p>
+              <p class="mt-1 text-xs text-slate-600">Prestados o en mantenimiento</p>
+            </article>
+          </div>
+        </section>
+
+        <!-- Préstamos -->
+        <section id="prestamos" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <h2 class="text-lg font-bold">Préstamos</h2>
+              <p class="text-sm text-slate-600">Seguimiento de préstamos y devoluciones.</p>
+            </div>
+
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <select class="w-full sm:w-56 rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm outline-none focus:ring-2 focus:ring-emerald-600/30">
+                <option>Todos</option>
+                <option>En curso</option>
+                <option>Vencidos</option>
+                <option>Devueltos</option>
+              </select>
+
+              <button class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 shadow-sm">
+                Registrar devolución
+              </button>
+            </div>
+          </header>
+
+          <div class="mt-4 space-y-3">
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p class="text-sm font-semibold">El Principito</p>
+                  <p class="text-xs text-slate-600">Usuario: María Torres · Vence: 2026-02-10</p>
+                </div>
+                <span class="inline-flex w-fit items-center rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+                  En curso
+                </span>
+              </div>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p class="text-sm font-semibold">Cien años de soledad</p>
+                  <p class="text-xs text-slate-600">Usuario: Carlos Méndez · Vence: 2026-02-01</p>
+                </div>
+                <span class="inline-flex w-fit items-center rounded-full bg-red-50 px-3 py-1 text-xs font-semibold text-red-700">
+                  Vencido
+                </span>
+              </div>
+            </article>
+
+            <article class="rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <p class="text-sm font-semibold">Introducción a Algoritmos</p>
+                  <p class="text-xs text-slate-600">Usuario: Ana López · Devuelto: 2026-01-28</p>
+                </div>
+                <span class="inline-flex w-fit items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold text-slate-700">
+                  Devuelto
+                </span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- Salir -->
+        <section id="salir" class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 class="text-lg font-bold">Salir</h2>
+          <p class="mt-1 text-sm text-slate-600">
+            Aquí podrías poner un modal de confirmación o redirigir al login.
+          </p>
+
+          <div class="mt-4 flex flex-col gap-2 sm:flex-row">
+            <button class="rounded-xl bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700 shadow-sm">
+              Confirmar salida
+            </button>
+            <button class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50">
+              Cancelar
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto border-t border-slate-200 bg-white">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="flex flex-col gap-2 py-6 sm:flex-row sm:items-center sm:justify-between">
+        <p class="text-sm text-slate-600">
+          © <span id="year"></span> Biblioteca · Panel de administración
+        </p>
+        <p class="text-xs text-slate-500">
+          Hecho con HTML semántico + Tailwind · Responsive
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Sidebar (off-canvas) -->
+  <div
+    id="mobileSidebar"
+    class="fixed inset-0 z-50 hidden md:hidden"
+    aria-hidden="true"
+  >
+    <!-- Backdrop -->
+    <div id="backdrop" class="absolute inset-0 bg-slate-900/40"></div>
+
+    <!-- Panel -->
+    <aside class="absolute left-0 top-0 h-full w-[85%] max-w-sm bg-white shadow-xl">
+      <div class="flex items-center justify-between border-b border-slate-200 p-4">
+        <div class="flex items-center gap-2">
+          <span class="grid h-9 w-9 place-items-center rounded-xl bg-emerald-600 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-2H6.5a.5.5 0 0 1 0-1H20V3H6.5A2.5 2.5 0 0 0 4 5.5v14z"/>
+              <path d="M8 6h10v2H8V6zm0 4h10v2H8v-2zm0 4h7v2H8v-2z"/>
+            </svg>
+          </span>
+          <div>
+            <p class="text-sm font-semibold">Biblioteca</p>
+            <p class="text-xs text-slate-500">Menú</p>
+          </div>
+        </div>
+
+        <button
+          id="closeSidebarBtn"
+          class="rounded-xl border border-slate-200 bg-white px-3 py-2 text-slate-700 hover:bg-slate-50"
+          aria-label="Cerrar menú"
+          type="button"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.3 5.71 12 12l6.3 6.29-1.41 1.42L10.59 13.4 4.29 19.71 2.88 18.29 9.17 12 2.88 5.71 4.29 4.29l6.3 6.3 6.29-6.3 1.42 1.42z"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="p-4 space-y-1">
+        <a href="#inicio" class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+          Inicio
+        </a>
+        <a href="#libros" class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+          Libros
+        </a>
+        <a href="#prestamos" class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-emerald-50 hover:text-emerald-700">
+          Préstamos
+        </a>
+        <a href="#salir" class="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700">
+          Salir
+        </a>
+      </nav>
+
+      <div class="p-4">
+        <div class="rounded-2xl bg-slate-50 p-4">
+          <p class="text-xs text-slate-600">
+            Tip: toca fuera del panel para cerrar el menú.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Vanilla JS -->
+  <script>
+    const mobileSidebar = document.getElementById("mobileSidebar");
+    const openBtn = document.getElementById("openSidebarBtn");
+    const closeBtn = document.getElementById("closeSidebarBtn");
+    const backdrop = document.getElementById("backdrop");
+
+    function openSidebar() {
+      mobileSidebar.classList.remove("hidden");
+      mobileSidebar.setAttribute("aria-hidden", "false");
+      openBtn.setAttribute("aria-expanded", "true");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeSidebar() {
+      mobileSidebar.classList.add("hidden");
+      mobileSidebar.setAttribute("aria-hidden", "true");
+      openBtn.setAttribute("aria-expanded", "false");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    openBtn.addEventListener("click", openSidebar);
+    closeBtn.addEventListener("click", closeSidebar);
+    backdrop.addEventListener("click", closeSidebar);
+
+    // Cerrar al navegar en el menú móvil
+    mobileSidebar.querySelectorAll("a[href^='#']").forEach(a => {
+      a.addEventListener("click", closeSidebar);
+    });
+
+    // Año en footer
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Cerrar con Escape
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !mobileSidebar.classList.contains("hidden")) closeSidebar();
+    });
+  </script>
+</body>
+</html>

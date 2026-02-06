@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Biblioteca</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos adicionales para mejorar la experiencia */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        /* Transición suave para el sidebar móvil */
+        #sidebar {
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* Sombra para las tarjetas */
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Efecto hover para elementos interactivos */
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header con menú -->
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo y título -->
+            <div class="flex items-center space-x-3">
+                <button id="sidebar-toggle" class="md:hidden text-white focus:outline-none">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-book text-2xl"></i>
+                    <h1 class="text-xl font-bold">Admin Biblioteca</h1>
+                </div>
+            </div>
+
+            <!-- Menú principal -->
+            <nav class="hidden md:block">
+                <ul class="flex space-x-6">
+                    <li>
+                        <a href="#inicio" class="hover:text-blue-200 transition-colors duration-200 font-medium">
+                            <i class="fas fa-home mr-1"></i> Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#usuarios" class="hover:text-blue-200 transition-colors duration-200 font-medium">
+                            <i class="fas fa-users mr-1"></i> Usuarios
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#prestamos" class="hover:text-blue-200 transition-colors duration-200 font-medium">
+                            <i class="fas fa-exchange-alt mr-1"></i> Préstamos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#salir" class="hover:text-blue-200 transition-colors duration-200 font-medium">
+                            <i class="fas fa-sign-out-alt mr-1"></i> Salir
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Usuario actual -->
+            <div class="hidden md:flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
+                    <i class="fas fa-user"></i>
+                </div>
+                <span class="font-medium">Administrador</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenedor principal -->
+    <div class="flex min-h-screen">
+        <!-- Sidebar (oculto en móviles) -->
+        <aside id="sidebar" class="bg-white w-64 min-h-screen shadow-lg fixed md:relative inset-y-0 left-0 transform -translate-x-full md:translate-x-0 z-20">
+            <div class="p-5 border-b border-gray-200">
+                <h2 class="text-lg font-bold text-gray-800">
+                    <i class="fas fa-book-reader mr-2 text-blue-600"></i> Menú Principal
+                </h2>
+            </div>
+
+            <!-- Navegación sidebar -->
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#inicio" class="flex items-center p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors duration-200 font-medium hover-lift">
+                            <i class="fas fa-home w-6 mr-3"></i> Inicio
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#libros" class="flex items-center p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors duration-200 font-medium hover-lift">
+                            <i class="fas fa-book w-6 mr-3"></i> Libros
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#prestamos" class="flex items-center p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors duration-200 font-medium hover-lift">
+                            <i class="fas fa-exchange-alt w-6 mr-3"></i> Préstamos
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#salir" class="flex items-center p-3 text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-lg transition-colors duration-200 font-medium hover-lift">
+                            <i class="fas fa-sign-out-alt w-6 mr-3"></i> Salir
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Separador -->
+                <div class="my-8 border-t border-gray-200 pt-6">
+                    <h3 class="text-sm font-semibold text-gray-500 uppercase mb-3">Estadísticas rápidas</h3>
+                    <div class="space-y-3">
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Libros activos</span>
+                                <span class="font-bold text-blue-700">1,245</span>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Préstamos activos</span>
+                                <span class="font-bold text-green-700">87</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Overlay para móviles (ocultar sidebar al hacer clic fuera) -->
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-10 md:hidden hidden"></div>
+
+        <!-- Contenido principal -->
+        <main class="flex-1 p-4 md:p-8 overflow-auto">
+            <!-- Título de la página actual -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Panel de Administración</h2>
+                <p class="text-gray-600">Gestiona los recursos de la biblioteca desde esta interfaz</p>
+            </div>
+
+            <!-- Tarjetas de estadísticas -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <article class="bg-white p-5 rounded-xl card-shadow hover-lift">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Total de Libros</h3>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">5,421</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <i class="fas fa-book text-blue-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-green-600 text-sm font-medium">
+                            <i class="fas fa-arrow-up mr-1"></i> 12% este mes
+                        </span>
+                    </div>
+                </article>
+
+                <article class="bg-white p-5 rounded-xl card-shadow hover-lift">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Usuarios Activos</h3>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">892</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                            <i class="fas fa-users text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-green-600 text-sm font-medium">
+                            <i class="fas fa-arrow-up mr-1"></i> 5% este mes
+                        </span>
+                    </div>
+                </article>
+
+                <article class="bg-white p-5 rounded-xl card-shadow hover-lift">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Préstamos Activos</h3>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">156</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
+                            <i class="fas fa-exchange-alt text-yellow-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-red-600 text-sm font-medium">
+                            <i class="fas fa-arrow-down mr-1"></i> 3% esta semana
+                        </span>
+                    </div>
+                </article>
+
+                <article class="bg-white p-5 rounded-xl card-shadow hover-lift">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="text-gray-500 text-sm font-medium">Libros Retrasados</h3>
+                            <p class="text-2xl font-bold text-gray-800 mt-1">23</p>
+                        </div>
+                        <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                            <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 pt-3 border-t border-gray-100">
+                        <span class="text-red-600 text-sm font-medium">
+                            <i class="fas fa-arrow-up mr-1"></i> 8% esta semana
+                        </span>
+                    </div>
+                </article>
+            </section>
+
+            <!-- Sección de actividades recientes -->
+            <section class="bg-white rounded-xl card-shadow p-6 mb-8">
+                <header class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-800">Préstamos Recientes</h2>
+                    <a href="#ver-todos" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                        Ver todos <i class="fas fa-arrow-right ml-1"></i>
+                    </a>
+                </header>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-4 py-3">Usuario</th>
+                                <th scope="col" class="px-4 py-3">Libro</th>
+                                <th scope="col" class="px-4 py-3">Fecha Préstamo</th>
+                                <th scope="col" class="px-4 py-3">Fecha Devolución</th>
+                                <th scope="col" class="px-4 py-3">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">María González</td>
+                                <td class="px-4 py-3">Cien años de soledad</td>
+                                <td class="px-4 py-3">15/05/2023</td>
+                                <td class="px-4 py-3">30/05/2023</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Activo</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Carlos López</td>
+                                <td class="px-4 py-3">El Principito</td>
+                                <td class="px-4 py-3">10/05/2023</td>
+                                <td class="px-4 py-3">25/05/2023</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Por vencer</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">Ana Martínez</td>
+                                <td class="px-4 py-3">1984</td>
+                                <td class="px-4 py-3">01/05/2023</td>
+                                <td class="px-4 py-3">15/05/2023</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">Retrasado</span>
+                                </td>
+                            </tr>
+                            <tr class="bg-white hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">José Rodríguez</td>
+                                <td class="px-4 py-3">Don Quijote de la Mancha</td>
+                                <td class="px-4 py-3">18/05/2023</td>
+                                <td class="px-4 py-3">02/06/2023</td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Activo</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Información adicional -->
+            <section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <article class="bg-white rounded-xl card-shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Libros Populares</h2>
+                    <ul class="space-y-4">
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-book text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">Cien años de soledad</h3>
+                                    <p class="text-sm text-gray-500">Gabriel García Márquez</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-blue-700">42 préstamos</span>
+                        </li>
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-book text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">El amor en los tiempos del cólera</h3>
+                                    <p class="text-sm text-gray-500">Gabriel García Márquez</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-blue-700">38 préstamos</span>
+                        </li>
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-book text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">1984</h3>
+                                    <p class="text-sm text-gray-500">George Orwell</p>
+                                </div>
+                            </div>
+                            <span class="font-bold text-blue-700">35 préstamos</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="bg-white rounded-xl card-shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-4">Acciones Rápidas</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <a href="#agregar-libro" class="flex flex-col items-center justify-center p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 hover-lift">
+                            <i class="fas fa-plus-circle text-blue-600 text-2xl mb-2"></i>
+                            <span class="font-medium text-blue-800">Agregar Libro</span>
+                        </a>
+                        <a href="#registrar-usuario" class="flex flex-col items-center justify-center p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors duration-200 hover-lift">
+                            <i class="fas fa-user-plus text-green-600 text-2xl mb-2"></i>
+                            <span class="font-medium text-green-800">Registrar Usuario</span>
+                        </a>
+                        <a href="#nuevo-prestamo" class="flex flex-col items-center justify-center p-4 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors duration-200 hover-lift">
+                            <i class="fas fa-exchange-alt text-yellow-600 text-2xl mb-2"></i>
+                            <span class="font-medium text-yellow-800">Nuevo Préstamo</span>
+                        </a>
+                        <a href="#generar-reporte" class="flex flex-col items-center justify-center p-4 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors duration-200 hover-lift">
+                            <i class="fas fa-chart-bar text-purple-600 text-2xl mb-2"></i>
+                            <span class="font-medium text-purple-800">Generar Reporte</span>
+                        </a>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6 mt-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <i class="fas fa-book text-xl"></i>
+                        <h2 class="text-lg font-bold">Sistema de Biblioteca</h2>
+                    </div>
+                    <p class="text-gray-400 text-sm">Administración y gestión de recursos bibliográficos</p>
+                </div>
+
+                <div class="flex space-x-6">
+                    <a href="#acerca-de" class="text-gray-300 hover:text-white transition-colors duration-200">Acerca de</a>
+                    <a href="#contacto" class="text-gray-300 hover:text-white transition-colors duration-200">Contacto</a>
+                    <a href="#privacidad" class="text-gray-300 hover:text-white transition-colors duration-200">Política de privacidad</a>
+                    <a href="#soporte" class="text-gray-300 hover:text-white transition-colors duration-200">Soporte</a>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-700 text-center text-gray-400 text-sm">
+                <p>&copy; 2023 Sistema de Administración de Biblioteca. Todos los derechos reservados.</p>
+                <p class="mt-1">Versión 2.1.0 | Última actualización: Mayo 2023</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script para funcionalidad del menú hamburguesa -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const overlay = document.getElementById('overlay');
+
+            // Alternar sidebar en móviles
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('-translate-x-full');
+                overlay.classList.toggle('hidden');
+            });
+
+            // Ocultar sidebar al hacer clic en el overlay
+            overlay.addEventListener('click', function() {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            });
+
+            // Ocultar sidebar al hacer clic en un enlace (solo en móviles)
+            const sidebarLinks = document.querySelectorAll('#sidebar a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 768) {
+                        sidebar.classList.add('-translate-x-full');
+                        overlay.classList.add('hidden');
+                    }
+                });
+            });
+
+            // Manejo de enlaces activos (simulación)
+            const currentPage = window.location.hash || '#inicio';
+            const navLinks = document.querySelectorAll('a[href="' + currentPage + '"]');
+            navLinks.forEach(link => {
+                if (link.closest('aside')) {
+                    link.classList.add('bg-blue-100', 'text-blue-700');
+                }
+            });
+
+            // Actualizar año en el footer
+            document.querySelector('footer p').innerHTML = document.querySelector('footer p').innerHTML.replace('2023', new Date().getFullYear());
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biblioteca - Página de Inicio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Segoe UI', system-ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <header class="bg-white/90 backdrop-blur border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#inicio" class="flex items-center gap-2">
+                <span class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold">B</span>
+                <span class="font-semibold text-lg">Biblioteca Central</span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Menú principal">
+                <a href="#inicio" class="hover:text-blue-600 transition">Inicio</a>
+                <a href="#colecciones" class="hover:text-blue-600 transition">Colecciones</a>
+                <a href="#servicios" class="hover:text-blue-600 transition">Servicios</a>
+                <a href="#contacto" class="hover:text-blue-600 transition">Contacto</a>
+            </nav>
+
+            <div class="hidden md:flex items-center gap-3">
+                <a href="#login" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 hover:bg-slate-100 transition">Login</a>
+                <a href="#registro" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition">Crear cuenta</a>
+            </div>
+
+            <button id="menu-toggle" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-lg border border-slate-300" aria-controls="mobile-menu" aria-expanded="false">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="3" y1="6" x2="21" y2="6" />
+                    <line x1="3" y1="12" x2="21" y2="12" />
+                    <line x1="3" y1="18" x2="21" y2="18" />
+                </svg>
+            </button>
+        </div>
+
+        <div id="mobile-menu" class="md:hidden hidden border-t border-slate-200 bg-white">
+            <div class="px-4 py-4 flex flex-col gap-3 text-sm">
+                <a href="#inicio" class="hover:text-blue-600">Inicio</a>
+                <a href="#colecciones" class="hover:text-blue-600">Colecciones</a>
+                <a href="#servicios" class="hover:text-blue-600">Servicios</a>
+                <a href="#contacto" class="hover:text-blue-600">Contacto</a>
+                <div class="pt-2 flex gap-2">
+                    <a href="#login" class="flex-1 px-3 py-2 rounded-lg border border-slate-300 text-center">Login</a>
+                    <a href="#registro" class="flex-1 px-3 py-2 rounded-lg bg-blue-600 text-white text-center">Crear cuenta</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main id="inicio">
+        <section class="max-w-6xl mx-auto px-4 py-14 grid lg:grid-cols-2 gap-10 items-center">
+            <div>
+                <p class="text-blue-600 font-medium">Lectura, investigación y comunidad</p>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mt-3">Tu biblioteca digital y física en un solo lugar</h1>
+                <p class="text-slate-600 mt-4 text-lg">Consulta el catálogo, reserva espacios de estudio y accede a recursos académicos desde cualquier dispositivo.</p>
+                <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                    <a href="#colecciones" class="px-6 py-3 rounded-lg bg-blue-600 text-white text-center hover:bg-blue-700 transition">Explorar catálogo</a>
+                    <a href="#servicios" class="px-6 py-3 rounded-lg border border-slate-300 text-center hover:bg-slate-100 transition">Ver servicios</a>
+                </div>
+                <div class="mt-8 grid grid-cols-3 gap-4 text-center">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <p class="text-2xl font-bold">120k</p>
+                        <p class="text-xs text-slate-500">Libros y revistas</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <p class="text-2xl font-bold">80+</p>
+                        <p class="text-xs text-slate-500">Bases de datos</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200">
+                        <p class="text-2xl font-bold">24/7</p>
+                        <p class="text-xs text-slate-500">Acceso digital</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <img class="rounded-2xl object-cover h-64 w-full" src="https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&fit=crop&w=900&q=80" alt="Estanterías con libros" />
+                <img class="rounded-2xl object-cover h-64 w-full" src="https://images.unsplash.com/photo-1519682577862-22b62b24e493?auto=format&fit=crop&w=900&q=80" alt="Estudiante leyendo en la biblioteca" />
+                <img class="rounded-2xl object-cover h-64 w-full col-span-2" src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=1200&q=80" alt="Mesas de estudio con luz natural" />
+            </div>
+        </section>
+
+        <section id="colecciones" class="bg-white border-t border-b border-slate-200">
+            <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 class="font-semibold text-lg">Literatura y Humanidades</h3>
+                    <p class="text-slate-600 mt-2">Clásicos, narrativa contemporánea y colecciones especiales.</p>
+                </div>
+                <div class="p-6 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 class="font-semibold text-lg">Ciencia y Tecnología</h3>
+                    <p class="text-slate-600 mt-2">Manuales, revistas científicas y recursos de innovación.</p>
+                </div>
+                <div class="p-6 rounded-xl bg-slate-50 border border-slate-200">
+                    <h3 class="font-semibold text-lg">Colección Infantil</h3>
+                    <p class="text-slate-600 mt-2">Lecturas guiadas y actividades para todas las edades.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="servicios" class="max-w-6xl mx-auto px-4 py-12">
+            <h2 class="text-2xl font-bold">Servicios pensados para ti</h2>
+            <div class="mt-6 grid md:grid-cols-3 gap-6">
+                <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                    <h3 class="font-semibold">Préstamo digital</h3>
+                    <p class="text-slate-600 mt-2">Accede a ebooks y audiolibros desde tu móvil o computadora.</p>
+                </div>
+                <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                    <h3 class="font-semibold">Salas de estudio</h3>
+                    <p class="text-slate-600 mt-2">Reserva espacios individuales o grupales con anticipación.</p>
+                </div>
+                <div class="p-6 rounded-xl border border-slate-200 bg-white">
+                    <h3 class="font-semibold">Asesoría académica</h3>
+                    <p class="text-slate-600 mt-2">Bibliotecarios para ayudarte a encontrar la información precisa.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contacto" class="bg-slate-900 text-slate-200">
+        <div class="max-w-6xl mx-auto px-4 py-10 grid md:grid-cols-3 gap-6">
+            <div>
+                <h3 class="font-semibold text-lg">Biblioteca Central</h3>
+                <p class="text-slate-400 mt-2">Avenida del Conocimiento 123, Ciudad Universitaria.</p>
+            </div>
+            <div>
+                <h4 class="font-semibold">Horario</h4>
+                <p class="text-slate-400 mt-2">Lunes a sábado 8:00 - 20:00</p>
+            </div>
+            <div>
+                <h4 class="font-semibold">Contacto</h4>
+                <p class="text-slate-400 mt-2">biblioteca@universidad.edu</p>
+                <p class="text-slate-400">+52 555 123 4567</p>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 text-center text-sm text-slate-500 py-4">© 2026 Biblioteca Central. Todos los derechos reservados.</div>
+    </footer>
+
+    <script>
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        toggle.addEventListener('click', () => {
+            const isHidden = menu.classList.toggle('hidden');
+            toggle.setAttribute('aria-expanded', (!isHidden).toString());
+        });
+    </script>
+</body>
+</html>
