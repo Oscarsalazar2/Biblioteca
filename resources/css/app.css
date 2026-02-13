@@ -1,55 +1,12 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap");
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "./pages/login.css";
+@import "./pages/welcome.css";
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+@source "../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php";
+@source "../../storage/framework/views/*.php";
+@source "../**/*.blade.php";
+@source "../**/*.js";
 
-@theme {
-    --font-sans:
-        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
-        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
-        "Noto Color Emoji";
-}
 
-* {
-    box-sizing: border-box;
-}
-
-body {
-    font-family: "Open Sans", sans-serif;
-}
-
-h1,
-h2,
-h3,
-h4 {
-    font-family: "Merriweather", serif;
-}
-
-/* Transiciones suaves */
-.transition-all {
-    transition: all 0.3s ease-in-out;
-}
-
-/* Sombra personalizada */
-.custom-shadow {
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Animación para el botón */
-@keyframes pulse {
-    0% {
-        transform: scale(1);
-    }
-    50% {
-        transform: scale(1.05);
-    }
-    100% {
-        transform: scale(1);
-    }
-}
-
-.pulse-animation {
-    animation: pulse 2s infinite;
-}

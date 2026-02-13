@@ -1,0 +1,60 @@
+@theme {
+    --font-sans:
+        "Open Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --font-title: "Merriweather", ui-serif, Georgia, serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: var(--font-title);
+}
+
+/* Transiciones suaves */
+.transition-all {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Sombra personalizada */
+.custom-shadow {
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+}
+
+/* Botón con glow sutil */
+.glow {
+    box-shadow: 0 16px 34px rgba(29, 78, 216, 0.22);
+}
+
+/* Borde degradado sutil */
+.border-glass {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Micro-animación para CTA */
+@keyframes pulseSoft {
+    0%,
+    100% {
+        transform: translateY(0);
+        box-shadow: 0 16px 34px rgba(29, 78, 216, 0.18);
+    }
+    50% {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 42px rgba(29, 78, 216, 0.26);
+    }
+}
+
+.pulse-animation {
+    animation: pulseSoft 2.8s ease-in-out infinite;
+}
+
