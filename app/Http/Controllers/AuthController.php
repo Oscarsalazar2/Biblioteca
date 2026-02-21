@@ -23,7 +23,7 @@ class AuthController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $request->session()->regenerate();
-            return redirect()->intended('/home')->with('success', 'Inicio de sesión exitoso');
+            return redirect()->route('dashboard')->with('success', 'Inicio de sesión exitoso');
         }
 
         return back()->withErrors([
@@ -51,7 +51,7 @@ class AuthController extends Controller
         ]);
 
         Auth::login($user);
-        return redirect('/home')->with('success', 'Cuenta creada exitosamente');
+        return redirect()->route('dashboard')->with('success', 'Cuenta creada exitosamente');
     }
 
     public function logout(Request $request)
@@ -60,6 +60,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('success', 'Sesión cerrada correctamente');
+        return redirect()->route('welcome')->with('success', 'Sesión cerrada correctamente');
     }
 }
