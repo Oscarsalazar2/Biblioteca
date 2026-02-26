@@ -10,7 +10,7 @@ class LibrosController extends Controller
 {
     public function index()
     {
-        $libros = Libro::with('categoria')->get();
+        $libros = Libro::with('categoria')->paginate(10);
         return view('admin.Libros.index', compact('libros'));
     }
 

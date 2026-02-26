@@ -89,12 +89,12 @@
 
 <body class="bg-gray-50 h-screen flex flex-col overflow-hidden">
     <!-- Header con estilo Biblioteca Digital -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm h-16 flex-shrink-0">
+    <header class="sticky top-0 z-50 bg-white shadow-sm h-16 shrink-0">
         <div class="container mx-auto px-3 sm:px-4 lg:px-6 h-full">
             <div class="flex justify-between items-center h-full gap-4">
 
                 <!-- Logo y título -->
-                <div class="flex items-center gap-3 flex-shrink-0">
+                <div class="flex items-center gap-3 shrink-0">
                     <button id="sidebar-toggle"
                         class="lg:hidden text-blue-800 hover:text-blue-600 focus:outline-none transition-colors"
                         aria-label="Toggle sidebar">
@@ -102,7 +102,7 @@
                     </button>
 
                     <div
-                        class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-md flex-shrink-0">
+                        class="w-10 h-10 rounded-xl bg-linear-to-br from-blue-600 to-blue-700 flex items-center justify-center shadow-md shrink-0">
                         <i class="fas fa-book-open text-white text-xl"></i>
                     </div>
 
@@ -126,7 +126,7 @@
                         </li>
                         <li>
                             <a href="{{ route('libros.index') }}"
-                                class="menu-item group flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 rounded-lg transition-all hover:bg-gray-100 hover:text-blue-600">
+                                class="menu-item {{ request()->routeIs('libros.*') ? 'active' : '' }} group flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all {{ request()->routeIs('libros.*') ? '' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                                 <i class="fas fa-book text-gray-500 group-hover:text-blue-600"></i>
                                 <span>Libros</span>
                             </a>
@@ -149,7 +149,7 @@
                 </nav>
 
                 <!-- Perfil de usuario -->
-                <div class="flex items-center gap-3 flex-shrink-0">
+                <div class="flex items-center gap-3 shrink-0">
                     <!-- Notificaciones (desktop) -->
                     <button
                         class="hidden lg:flex items-center justify-center w-10 h-10 rounded-lg hover:bg-gray-100 transition-colors relative"
@@ -160,9 +160,9 @@
 
                     <!-- Usuario (desktop) -->
                     <div
-                        class="hidden lg:flex items-center gap-3 px-3 py-2 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                        class="hidden lg:flex items-center gap-3 px-3 py-2 bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
                         <div
-                            class="w-8 h-8 rounded-full bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm">
+                            class="w-8 h-8 rounded-full bg-linear-to-br from-blue-600 to-indigo-600 flex items-center justify-center shadow-sm">
                             <i class="fas fa-user text-white text-sm"></i>
                         </div>
                         <div class="hidden xl:block">
@@ -198,29 +198,30 @@
                         <li>
                             <a href="{{ route('dashboard') }}"
                                 class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }} flex items-center p-2 sm:p-3 rounded-xl font-medium text-sm sm:text-base">
-                                <i class="fas fa-home w-5 sm:w-6 mr-2 sm:mr-3 flex-shrink-0"></i> <span>Dashboard</span>
+                                <i class="fas fa-home w-5 sm:w-6 mr-2 sm:mr-3 shrink-0"></i> <span>Dashboard</span>
                                 <span
-                                    class="ml-auto bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full flex-shrink-0">5</span>
+                                    class="ml-auto bg-blue-200 text-blue-800 text-xs px-2 py-1 rounded-full shrink-0">5</span>
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('libros.index') }}"
-                                class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-book w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                class="menu-item {{ request()->routeIs('libros.*') ? 'active' : '' }} flex items-center p-2 sm:p-3 rounded-xl transition-all duration-200 text-sm sm:text-base {{ request()->routeIs('libros.*') ? '' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover-lift' }}">
+                                <i
+                                    class="fas fa-book w-5 sm:w-6 mr-2 sm:mr-3 {{ request()->routeIs('libros.*') ? 'shrink-0' : 'text-gray-500 shrink-0' }}"></i>
                                 <span>Libros</span>
                             </a>
                         </li>
                         <li>
                             <a href="#usuarios"
                                 class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-users w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                <i class="fas fa-users w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Usuarios</span>
                             </a>
                         </li>
                         <li>
                             <a href="#prestamos"
                                 class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-exchange-alt w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                <i class="fas fa-exchange-alt w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Préstamos</span>
                             </a>
                         </li>
@@ -228,7 +229,7 @@
                             <a href="{{ route('categorias.index') }}"
                                 class="menu-item {{ request()->routeIs('categorias.index') ? 'active' : '' }} flex items-center p-2 sm:p-3 rounded-xl transition-all duration-200 text-sm sm:text-base {{ request()->routeIs('categorias.index') ? '' : 'text-gray-700 hover:bg-blue-50 hover:text-blue-700 hover-lift' }}">
                                 <i
-                                    class="fas fa-tags w-5 sm:w-6 mr-2 sm:mr-3 {{ request()->routeIs('categorias.index') ? 'flex-shrink-0' : 'text-gray-500 flex-shrink-0' }}"></i>
+                                    class="fas fa-tags w-5 sm:w-6 mr-2 sm:mr-3 {{ request()->routeIs('categorias.index') ? 'shrink-0' : 'text-gray-500 shrink-0' }}"></i>
                                 <span>Categorías</span>
                             </a>
                         </li>
@@ -242,23 +243,23 @@
                         <li>
                             <a href="#reportes"
                                 class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-chart-bar w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                <i class="fas fa-chart-bar w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Reportes</span>
                             </a>
                         </li>
                         <li>
                             <a href="#multas"
                                 class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-coins w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                <i class="fas fa-coins w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Multas</span>
                                 <span
-                                    class="ml-auto bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full flex-shrink-0">3</span>
+                                    class="ml-auto bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full shrink-0">3</span>
                             </a>
                         </li>
                         <li>
                             <a href="#configuracion"
                                 class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
-                                <i class="fas fa-cog w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                                <i class="fas fa-cog w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Configuración</span>
                             </a>
                         </li>
@@ -267,10 +268,10 @@
 
                 <!-- Tarjeta de estadísticas -->
                 <div
-                    class="hidden sm:block mt-6 sm:mt-8 p-3 sm:p-5 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl text-white custom-shadow">
+                    class="hidden sm:block mt-6 sm:mt-8 p-3 sm:p-5 bg-linear-to-br from-blue-600 to-blue-800 rounded-xl text-white custom-shadow">
                     <div class="flex items-center mb-3 sm:mb-4">
                         <div
-                            class="w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mr-2 sm:mr-3 backdrop-blur-sm flex-shrink-0">
+                            class="w-8 sm:w-10 h-8 sm:h-10 rounded-full bg-white/20 flex items-center justify-center mr-2 sm:mr-3 backdrop-blur-sm shrink-0">
                             <i class="fas fa-chart-line text-white text-sm sm:text-base"></i>
                         </div>
                         <h3 class="font-bold text-sm sm:text-base">Estadísticas</h3>
@@ -308,7 +309,7 @@
                 <div class="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-200">
                     <a href="{{ route('logout') }}"
                         class="flex items-center p-2 sm:p-3 text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-xl transition-all duration-200 text-sm sm:text-base">
-                        <i class="fas fa-sign-out-alt w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 flex-shrink-0"></i>
+                        <i class="fas fa-sign-out-alt w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                         <span>Cerrar Sesión</span>
                     </a>
                 </div>

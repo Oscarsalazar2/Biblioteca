@@ -33,7 +33,7 @@
         <!-- Header -->
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-800 mb-2 flex items-center gap-3">
-                <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-2.5 shadow-lg">
+                <div class="bg-linear-to-br from-blue-500 to-blue-600 rounded-lg p-2.5 shadow-lg">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -45,7 +45,7 @@
 
         <!-- Form Card -->
         <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
+            <div class="bg-linear-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

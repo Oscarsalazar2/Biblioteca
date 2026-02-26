@@ -10,8 +10,11 @@ class CategoriasController extends Controller
     //
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('admin.categorias.categoria', compact('categorias'));
+        $totalCategorias = Categoria::count();
+
+        $categorias = Categoria::query()->paginate(10);
+
+        return view('admin.categorias.categoria', compact('categorias', 'totalCategorias'));
     }
 
     public function create()

@@ -24,7 +24,7 @@
                         digital</p>
                 </div>
                 <a href="{{ route('libros.create') }}"
-                    class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
+                    class="inline-flex items-center gap-2 bg-linear-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                     </svg>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="mb-6">
-            <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-sm">
+            <div class="bg-linear-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-100 shadow-sm">
                 <div class="flex items-center gap-4">
                     <div class="bg-blue-600 rounded-lg p-3">
                         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,14 +44,14 @@
                     </div>
                     <div>
                         <p class="text-sm text-gray-600 font-medium">Total de Libros</p>
-                        <p class="text-3xl font-bold text-gray-800">{{ $libros->count() }}</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ $libros->total() }}</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-            <div class="bg-gradient-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
+            <div class="bg-linear-to-r from-gray-50 to-gray-100 px-6 py-4 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -62,32 +62,32 @@
             </div>
 
             @if ($libros->count() > 0)
-                <div class="overflow-x-auto">
-                    <table class="w-full">
+                <div>
+                    <table class="w-full table-fixed">
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[24%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Libro
                                 </th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[16%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Autor
                                 </th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[14%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     ISBN
                                 </th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[16%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Editorial
                                 </th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[14%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Categoría
                                 </th>
                                 <th
-                                    class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    class="w-[16%] px-3 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Acciones
                                 </th>
                             </tr>
@@ -95,60 +95,62 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($libros as $libro)
                                 <tr class="hover:bg-blue-50 transition-colors duration-150">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center gap-3">
+                                    <td class="px-3 py-3 align-top">
+                                        <div class="flex items-start gap-2 min-w-0">
                                             <div
-                                                class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md">
+                                                class="w-8 h-8 shrink-0 bg-linear-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-md">
                                                 {{ strtoupper(substr($libro->titulo, 0, 2)) }}
                                             </div>
-                                            <div>
-                                                <p class="text-sm font-semibold text-gray-800">{{ $libro->titulo }}</p>
+                                            <div class="min-w-0">
+                                                <p class="text-sm font-semibold text-gray-800 wrap-break-word leading-snug">
+                                                    {{ $libro->titulo }}</p>
                                                 <p class="text-xs text-gray-500">Libro #{{ $libro->id }}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800">
-                                        <div class="inline-flex items-center gap-2">
+                                    <td class="px-3 py-3 text-sm text-gray-800 align-top">
+                                        <div class="inline-flex items-start gap-1.5">
                                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
-                                            <span>{{ $libro->autor }}</span>
+                                            <span class="wrap-break-word leading-snug">{{ $libro->autor }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800">
-                                        <div class="inline-flex items-center gap-2">
+                                    <td class="px-3 py-3 text-sm text-gray-800 align-top">
+                                        <div class="inline-flex items-start gap-1.5">
                                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M9 7h6m-6 4h6m-6 4h6M7 5h10a2 2 0 012 2v10a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2z" />
                                             </svg>
-                                            <span>{{ $libro->isbn }}</span>
+                                            <span class="break-all leading-snug">{{ $libro->isbn }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800">
-                                        <div class="inline-flex items-center gap-2">
+                                    <td class="px-3 py-3 text-sm text-gray-800 align-top">
+                                        <div class="inline-flex items-start gap-1.5">
                                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M3 7l9-4 9 4m-9 13V10m-7 10h14a2 2 0 002-2V7M5 21V9m14 12V9" />
                                             </svg>
-                                            <span>{{ $libro->editorial }}</span>
+                                            <span class="wrap-break-word leading-snug">{{ $libro->editorial }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800">
-                                        <div class="inline-flex items-center gap-2">
+                                    <td class="px-3 py-3 text-sm text-gray-800 align-top">
+                                        <div class="inline-flex items-start gap-1.5">
                                             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                                             </svg>
-                                            <span>{{ $libro->categoria?->nombre ?? 'Sin categoría' }}</span>
+                                            <span
+                                                class="wrap-break-word leading-snug">{{ $libro->categoria?->nombre ?? 'Sin categoría' }}</span>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 whitespace-nowrap">
-                                        <div class="inline-flex items-center gap-3">
+                                    <td class="px-3 py-3 text-sm text-gray-800 align-top">
+                                        <div class="flex flex-col gap-2">
                                             <a href="{{ route('libros.edit', $libro->id) }}"
                                                 class="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium">
                                                 <svg class="w-4 h-4" fill="none" stroke="currentColor"
@@ -183,6 +185,11 @@
                         </tbody>
                     </table>
                 </div>
+                @if ($libros->hasPages())
+                <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+                    {{ $libros->links() }}
+                </div>
+            @endif
             @else
                 <div class="text-center py-12">
                     <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"

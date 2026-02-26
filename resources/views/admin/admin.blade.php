@@ -27,7 +27,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-gray-500 text-sm font-medium">Total de Libros</h3>
-                        <p class="text-2xl font-bold text-gray-800 mt-1">5,421</p>
+                        <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalLibros }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
                         <i class="fas fa-book text-blue-600 text-xl"></i>
@@ -230,7 +230,7 @@
             <article class="bg-white rounded-xl card-shadow p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-4">Acciones Rápidas</h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <a href="#agregar-libro"
+                    <a href="{{ route('libros.create') }}"
                         class="flex flex-col items-center justify-center p-4 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors duration-200 hover-lift">
                         <i class="fas fa-plus-circle text-blue-600 text-2xl mb-2"></i>
                         <span class="font-medium text-blue-800">Agregar Libro</span>
