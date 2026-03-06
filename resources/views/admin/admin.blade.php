@@ -44,7 +44,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-gray-500 text-sm font-medium">Usuarios Activos</h3>
-                        <p class="text-2xl font-bold text-gray-800 mt-1">892</p>
+                        <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalUsuarios }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
                         <i class="fas fa-users text-green-600 text-xl"></i>
@@ -235,7 +235,7 @@
                         <i class="fas fa-plus-circle text-blue-600 text-2xl mb-2"></i>
                         <span class="font-medium text-blue-800">Agregar Libro</span>
                     </a>
-                    <a href="#registrar-usuario"
+                    <a href="{{ route('usuarios.create') }}"
                         class="flex flex-col items-center justify-center p-4 bg-green-50 hover:bg-green-100 rounded-lg transition-colors duration-200 hover-lift">
                         <i class="fas fa-user-plus text-green-600 text-2xl mb-2"></i>
                         <span class="font-medium text-green-800">Registrar Usuario</span>

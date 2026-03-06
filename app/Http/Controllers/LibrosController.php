@@ -20,13 +20,6 @@ class LibrosController extends Controller
         return view('admin.Libros.create', compact('categorias'));
     }
 
-    public function edit($id)
-    {
-        $libro = Libro::findOrFail($id);
-        $categorias = Categoria::all();
-
-        return view('admin.Libros.edit', compact('libro', 'categorias'));
-    }
 
     public function store(Request $request)
     {
@@ -48,6 +41,15 @@ class LibrosController extends Controller
 
         return redirect()->route('libros.index')->with('success', 'Libro creado exitosamente.');
     }
+
+    public function edit($id)
+    {
+        $libro = Libro::findOrFail($id);
+        $categorias = Categoria::all();
+
+        return view('admin.Libros.edit', compact('libro', 'categorias'));
+    }
+
 
     public function update(Request $request, $id)
     {
