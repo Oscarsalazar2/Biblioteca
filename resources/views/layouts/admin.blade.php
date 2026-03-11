@@ -139,8 +139,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#prestamos"
-                                class="menu-item group flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 rounded-lg transition-all hover:bg-gray-100 hover:text-blue-600">
+                            <a href="{{ route('prestamos.index') }}"
+                            class="menu-item {{ request()->routeIs('prestamos.*') ? 'active' : '' }} group flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg transition-all {{ request()->routeIs('prestamos.*') ? '' : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600' }}">
                                 <i class="fas fa-exchange-alt text-gray-500 group-hover:text-blue-600"></i>
                                 <span>Préstamos</span>
                             </a>

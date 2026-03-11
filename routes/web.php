@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoriasController;
 use App\Http\Controllers\LibrosController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\PrestamosController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -51,6 +52,10 @@ Route::middleware(['auth', 'user.type:admin'])->group(function () {
     Route::get('/usuarios/{id}', function () {
         return redirect('/usuarios');
     });
+    //PRESTAMOS
+    Route::get('/prestamos', [PrestamosController::class, 'index'])->name('prestamos.index');
+    Route::get('/prestamos/create', [PrestamosController::class, 'create'])->name('prestamos.create');
+    Route::post('/prestamos/buscar_usuario', [PrestamosController::class, 'buscar_usuario'])->name('prestamos.buscar_usuario');
 });
 
 // Ruta de cierre de sesión
