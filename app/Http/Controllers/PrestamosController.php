@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Prestamo;
+use App\Models\Libro;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class PrestamosController extends Controller
 {
@@ -38,5 +40,48 @@ class PrestamosController extends Controller
         }
 
         return view('admin.prestamos.create', compact('usuario'));
+    }
+    public function select_libro(Request $request)
+    {
+        $usuario_id = $request->input('usuario_id');
+        $usuario = User::find($usuario_id);
+        $libros = Libro::orderBy('id')->get();
+
+        return view('admin.prestamos.select_libro', compact('usuario', 'libros'));
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'usuario_id' => 'required|exists:users,id',
+            'libro_id' => 'required|exists:libros,id',
+            'fecha_entrega' => 'required|date',
+            'fecha_devolucion' => 'required|date|after_or_equal:fecha_entrega',
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $libro = Libro::find($request->input('libro_id'));
+
+            if ((int) $libro->estatus === 0) {
+                return redirect()->back()->with('error', 'El libro seleccionado no esta disponible.');
+            }
+
+            $prestamo = new Prestamo();
+            $prestamo->usuario_id = $request->input('usuario_id');
+            $prestamo->libro_id = $request->input('libro_id');
+            $prestamo->fecha_entrega = $request->input('fecha_entrega');
+            $prestamo->fecha_devolucion = $request->input('fecha_devolucion');
+            $prestamo->save();
+
+            $libro->estatus = 0;
+            $libro->save();
+
+            DB::commit();
+            return redirect()->route('prestamos.index')->with('success', 'Préstamo registrado exitosamente.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Error al registrar el préstamo.');
+        }
     }
 }

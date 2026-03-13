@@ -61,7 +61,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-gray-500 text-sm font-medium">Préstamos Activos</h3>
-                        <p class="text-2xl font-bold text-gray-800 mt-1">156</p>
+                        <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalPrestamos }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
                         <i class="fas fa-exchange-alt text-yellow-600 text-xl"></i>
@@ -78,7 +78,7 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <h3 class="text-gray-500 text-sm font-medium">Libros Retrasados</h3>
-                        <p class="text-2xl font-bold text-gray-800 mt-1">23</p>
+                        <p class="text-2xl font-bold text-gray-800 mt-1">{{ $totalPrestamosRetrasados }}</p>
                     </div>
                     <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
                         <i class="fas fa-exclamation-triangle text-red-600 text-xl"></i>
@@ -240,7 +240,7 @@
                         <i class="fas fa-user-plus text-green-600 text-2xl mb-2"></i>
                         <span class="font-medium text-green-800">Registrar Usuario</span>
                     </a>
-                    <a href="#nuevo-prestamo"
+                    <a href="{{route('prestamos.create') }}"
                         class="flex flex-col items-center justify-center p-4 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors duration-200 hover-lift">
                         <i class="fas fa-exchange-alt text-yellow-600 text-2xl mb-2"></i>
                         <span class="font-medium text-yellow-800">Nuevo Préstamo</span>

@@ -217,8 +217,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#prestamos"
-                                class="menu-item flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
+                            <a href="{{ route('prestamos.index') }}"
+                                class="menu-item {{ request()->routeIs('prestamos.*') ? 'active' : '' }} flex items-center p-2 sm:p-3 text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-xl transition-all duration-200 hover-lift text-sm sm:text-base">
                                 <i class="fas fa-exchange-alt w-5 sm:w-6 mr-2 sm:mr-3 text-gray-500 shrink-0"></i>
                                 <span>Préstamos</span>
                             </a>

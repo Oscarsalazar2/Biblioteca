@@ -56,6 +56,8 @@ Route::middleware(['auth', 'user.type:admin'])->group(function () {
     Route::get('/prestamos', [PrestamosController::class, 'index'])->name('prestamos.index');
     Route::get('/prestamos/create', [PrestamosController::class, 'create'])->name('prestamos.create');
     Route::post('/prestamos/buscar_usuario', [PrestamosController::class, 'buscar_usuario'])->name('prestamos.buscar_usuario');
+    Route::post('/prestamos/select_libro', [PrestamosController::class, 'select_libro'])->name('prestamos.select_libro');
+    Route::post('/prestamos', [PrestamosController::class, 'store'])->name('prestamos.store');
 });
 
 // Ruta de cierre de sesión
