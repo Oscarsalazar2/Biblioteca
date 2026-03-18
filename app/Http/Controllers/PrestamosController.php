@@ -84,4 +84,52 @@ class PrestamosController extends Controller
             return redirect()->back()->with('error', 'Error al registrar el préstamo.');
         }
     }
+
+    public function entregar($id)
+    {
+
+        $prestamo = Prestamo::findOrFail($id);
+        $prestamo->estado = 'devuelto';
+        $prestamo->save();
+
+        $libro = Libro::findOrFail($prestamo->libro_id);
+        $libro->estatus = 1;
+        $libro->save();
+
+        return redirect()->route('prestamos.index')->with('success', 'Préstamo entregado exitosamente.');
+    }
+
+    public function edit($id)
+    {
+        $prestamo = Prestamo::findOrFail($id);
+        return view('admin.prestamos.edit', compact('prestamo'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'usuario_id' => 'required|exists:users,id',
+            'libro_id' => 'required|exists:libros,id',
+            'fecha_entrega' => 'required|date',
+            'fecha_devolucion' => 'required|date|after_or_equal:fecha_entrega',
+        ]);
+
+        $prestamo = Prestamo::findOrFail($id);
+        $prestamo->update([
+            'usuario_id' => $request->usuario_id,
+            'libro_id' => $request->libro_id,
+            'fecha_entrega' => $request->fecha_entrega,
+            'fecha_devolucion' => $request->fecha_devolucion,
+        ]);
+
+        return redirect()->route('prestamos.index')->with('success', 'Préstamo actualizado exitosamente.');
+    }
+
+    public function destroy($id)
+    {
+        $prestamo = Prestamo::findOrFail($id);
+        $prestamo->delete();
+
+        return redirect()->route('prestamos.index')->with('success', 'Préstamo eliminado exitosamente.');
+    }
 }

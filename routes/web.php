@@ -58,6 +58,10 @@ Route::middleware(['auth', 'user.type:admin'])->group(function () {
     Route::post('/prestamos/buscar_usuario', [PrestamosController::class, 'buscar_usuario'])->name('prestamos.buscar_usuario');
     Route::post('/prestamos/select_libro', [PrestamosController::class, 'select_libro'])->name('prestamos.select_libro');
     Route::post('/prestamos', [PrestamosController::class, 'store'])->name('prestamos.store');
+    Route::get ('/prestamos/{id}/entrega', [PrestamosController::class, 'entregar'])->name('prestamos.entregar');
+    Route::get('/prestamos/{id}/edit', [PrestamosController::class, 'edit'])->name('prestamos.edit');
+    Route::put('/prestamos/{id}', [PrestamosController::class, 'update'])->name('prestamos.update');
+    Route::delete('/prestamos/{id}', [PrestamosController::class, 'destroy'])->name('prestamos.destroy');
 });
 
 // Ruta de cierre de sesión

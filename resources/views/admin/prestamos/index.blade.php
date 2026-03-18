@@ -34,6 +34,7 @@
                             <th scope="col" class="px-4 py-3">Fecha Devolucion</th>
                             <th scope="col" class="px-4 py-3">Categoria</th>
                             <th scope="col" class="px-4 py-3">Estado</th>
+                            <th scope="col" class="px-4 py-3">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,10 @@
                                 $estadoColor = 'bg-gray-100 text-gray-800';
 
                                 if ($fechaDevolucion) {
-                                    if ($fechaDevolucion->isPast()) {
+                                    if ($prestamo->estado === 'devuelto') {
+                                        $estado = 'Entregado';
+                                        $estadoColor = 'bg-green-100 text-green-800';
+                                    } elseif ($fechaDevolucion->isPast()) {
                                         $estado = 'Retrasado';
                                         $estadoColor = 'bg-red-100 text-red-800';
                                     } elseif (now()->diffInDays($fechaDevolucion, false) <= 2) {
@@ -76,6 +80,43 @@
                                     <span class="px-2 py-1 rounded-full text-xs font-medium {{ $estadoColor }}">
                                         {{ $estado }}
                                     </span>
+                                </td>
+                                <td class="px-6 py-3">
+                                    <div class="flex flex-col gap-2">
+                                        <a href="{{ route('prestamos.entregar', $prestamo->id) }}"
+                                            class="inline-flex w-28 items-center gap-1 text-green-600 hover:text-green-800 text-sm font-medium">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M5 13l4 4L19 7" />
+                                            </svg>
+                                            Entregar
+                                        </a>
+
+                                        <a href="{{ route('prestamos.edit', $prestamo->id) }}"
+                                            class="inline-flex w-28 items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                            Editar
+                                        </a>
+                                        <a href="{{ route('prestamos.destroy', $prestamo->id) }}"
+                                            class="inline-flex w-28 items-center gap-1 text-red-600 hover:text-red-800 text-sm font-medium"
+                                            onclick="event.preventDefault(); if(confirm('¿Estás seguro de eliminar este préstamo?')) { document.getElementById('delete-form-{{ $prestamo->id }}').submit(); }">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                            Eliminar
+                                        </a>
+
+                                        <form id="delete-form-{{ $prestamo->id }}"
+                                            action="{{ route('prestamos.destroy', $prestamo->id) }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @empty
