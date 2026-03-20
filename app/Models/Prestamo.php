@@ -9,6 +9,14 @@ class Prestamo extends Model
     //
     protected $table = 'prestamos';
 
+    protected $fillable = [
+        'libro_id',
+        'usuario_id',
+        'estado',
+        'fecha_prestamo',
+        'fecha_devolucion',
+    ];
+
     public function libro()
     {
         return $this->belongsTo(Libro::class, 'libro_id');
