@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Test User', 'password' => bcrypt('password')]
         );
 
-        $this->call(LibroSeeder::class);
+        $this->call([
+            LibroSeeder::class,
+            AdminUserSeeder::class,
+        ]);
     }
 }

@@ -7,10 +7,14 @@ php-fpm &
 sleep 3
 
 # Generar key si no existe
-#php artisan key:generate --force
+php artisan key:generate --force
 
-# Migraciones (opcional)
+
+# Migraciones
 php artisan migrate --force
+
+# Seeders (usuario admin)
+php artisan db:seed --force
 
 # Cachear config
 php artisan config:clear
