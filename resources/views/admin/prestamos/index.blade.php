@@ -4,6 +4,11 @@
 
 @section('content')
     <div class="container mx-auto px-4 py-6 max-w-6xl">
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
                 <h1 class="text-3xl font-bold text-gray-800 mb-2">Prestamos</h1>
@@ -91,7 +96,6 @@
                                             </svg>
                                             Entregar
                                         </a>
-
                                         <a href="{{ route('prestamos.edit', $prestamo->id) }}"
                                             class="inline-flex w-28 items-center gap-1 text-blue-600 hover:text-blue-800 text-sm font-medium">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
