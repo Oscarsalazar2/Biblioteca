@@ -96,7 +96,7 @@
         <section class="bg-white rounded-xl card-shadow p-6 mb-8">
             <header class="flex justify-between items-center mb-6">
                 <h2 class="text-xl font-bold text-gray-800">Préstamos Recientes</h2>
-                <a href="#ver-todos" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                <a href="{{ route('prestamos.index') }}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
                     Ver todos <i class="fas fa-arrow-right ml-1"></i>
                 </a>
             </header>
@@ -114,58 +114,58 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium">María González</td>
-                            <td class="px-4 py-3">Cien años de soledad</td>
-                            <td class="px-4 py-3">15/05/2023</td>
-                            <td class="px-4 py-3">30/05/2023</td>
-                            <td class="px-4 py-3 "><span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Ficción</span>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Activo</span>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium">Carlos López</td>
-                            <td class="px-4 py-3">El Principito</td>
-                            <td class="px-4 py-3">10/05/2023</td>
-                            <td class="px-4 py-3">25/05/2023</td>
-                            <td class="px-4 py-3"><span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Ficción</span>
-                            </td>
-                            <td class="px-4 py-3"> <span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">Por
-                                    vencer</span></td>
-                            </td>
-                        </tr>
-                        <tr class="bg-white border-b hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium">Ana Martínez</td>
-                            <td class="px-4 py-3">1984</td>
-                            <td class="px-4 py-3">01/05/2023</td>
-                            <td class="px-4 py-3">15/05/2023</td>
-                            <td class="px-4 py-3"><span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Ficción</span>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">Retrasado</span>
-                            </td>
-                        </tr>
-                        <tr class="bg-white hover:bg-gray-50">
-                            <td class="px-4 py-3 font-medium">José Rodríguez</td>
-                            <td class="px-4 py-3">Don Quijote de la Mancha</td>
-                            <td class="px-4 py-3">18/05/2023</td>
-                            <td class="px-4 py-3">02/06/2023</td>
-                            <td class="px-4 py-3"><span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">Ficción</span>
-                            </td>
-                            <td class="px-4 py-3">
-                                <span
-                                    class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">Activo</span>
-                            </td>
-                        </tr>
+                        @forelse ($prestamosRecientes as $prestamo)
+                            @php
+                                $fechaDevolucion = $prestamo->fecha_devolucion
+                                    ? \Carbon\Carbon::parse($prestamo->fecha_devolucion)
+                                    : null;
+
+                                $estado = 'Sin fecha';
+                                $estadoColor = 'bg-gray-100 text-gray-800';
+
+                                if ($fechaDevolucion) {
+                                    if ($prestamo->estado === 'devuelto') {
+                                        $estado = 'Entregado';
+                                        $estadoColor = 'bg-green-100 text-green-800';
+                                    } elseif ($fechaDevolucion->isPast()) {
+                                        $estado = 'Retrasado';
+                                        $estadoColor = 'bg-red-100 text-red-800';
+                                    } elseif (now()->diffInDays($fechaDevolucion, false) <= 2) {
+                                        $estado = 'Por vencer';
+                                        $estadoColor = 'bg-yellow-100 text-yellow-800';
+                                    } else {
+                                        $estado = 'Activo';
+                                        $estadoColor = 'bg-green-100 text-green-800';
+                                    }
+                                }
+                            @endphp
+
+                            <tr class="bg-white border-b hover:bg-gray-50">
+                                <td class="px-4 py-3 font-medium">{{ $prestamo->usuario?->name ?? 'Sin usuario' }}</td>
+                                <td class="px-4 py-3">{{ $prestamo->libro?->titulo ?? 'Sin libro' }}</td>
+                                <td class="px-4 py-3">
+                                    {{ $prestamo->fecha_entrega ? \Carbon\Carbon::parse($prestamo->fecha_entrega)->format('d/m/Y') : 'Sin fecha' }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    {{ $prestamo->fecha_devolucion ? \Carbon\Carbon::parse($prestamo->fecha_devolucion)->format('d/m/Y') : 'Sin fecha' }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                        {{ $prestamo->libro?->categoria?->nombre ?? 'Sin categoría' }}
+                                    </span>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium {{ $estadoColor }}">
+                                        {{ $estado }}
+                                    </span>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="px-4 py-6 text-center text-gray-500">No hay préstamos recientes.
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
@@ -176,54 +176,24 @@
             <article class="bg-white rounded-xl card-shadow p-6">
                 <h2 class="text-xl font-bold text-gray-800 mb-4">Libros Populares</h2>
                 <ul class="space-y-4">
-                    <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-blue-600"></i>
+                    @forelse ($librosPopulares as $popular)
+                        <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+                                    <i class="fas fa-book text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-medium">{{ $popular->libro?->titulo ?? 'Libro no disponible' }}</h3>
+                                    <p class="text-sm text-gray-500">{{ $popular->libro?->autor ?? 'Sin autor' }}</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 class="font-medium">Cien años de soledad</h3>
-                                <p class="text-sm text-gray-500">Gabriel García Márquez</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-blue-700">42 préstamos</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-medium">El amor en los tiempos del cólera</h3>
-                                <p class="text-sm text-gray-500">Gabriel García Márquez</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-blue-700">38 préstamos</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-medium">1984</h3>
-                                <p class="text-sm text-gray-500">George Orwell</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-blue-700">35 préstamos</span>
-                    </li>
-                    <li class="flex justify-between items-center p-3 hover:bg-gray-50 rounded-lg">
-                        <div class="flex items-center">
-                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
-                                <i class="fas fa-book text-blue-600"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-medium">El Principito</h3>
-                                <p class="text-sm text-gray-500">Antoine de Saint-Exupéry</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-blue-700">32 préstamos</span>
-                    </li>
+                            <span class="font-bold text-blue-700">{{ $popular->total_prestamos }} préstamos</span>
+                        </li>
+                    @empty
+                        <li class="p-3 text-sm text-gray-500 bg-gray-50 rounded-lg">
+                            Aún no hay datos de préstamos para mostrar libros populares.
+                        </li>
+                    @endforelse
                 </ul>
             </article>
 
@@ -240,7 +210,7 @@
                         <i class="fas fa-user-plus text-green-600 text-2xl mb-2"></i>
                         <span class="font-medium text-green-800">Registrar Usuario</span>
                     </a>
-                    <a href="{{route('prestamos.create') }}"
+                    <a href="{{ route('prestamos.create') }}"
                         class="flex flex-col items-center justify-center p-4 bg-yellow-50 hover:bg-yellow-100 rounded-lg transition-colors duration-200 hover-lift">
                         <i class="fas fa-exchange-alt text-yellow-600 text-2xl mb-2"></i>
                         <span class="font-medium text-yellow-800">Nuevo Préstamo</span>
